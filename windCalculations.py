@@ -3,14 +3,6 @@
 import random
 
 #get wind from mqtt
-
-windDegree = random.randint(0,360) #will be given by weather station
-print("Current wind: ", windDegree)
-
-compassBearing = 90 #pointed east
-
-difference = windDegree - compassBearing
-
 def tacking():
 	if 'lastTack' not in startTacking.__dict__:
 		lastTack = -1
@@ -24,6 +16,14 @@ def tacking():
 	#let everything else take over
 
 def analyzeWind():
+	windDegree = random.randint(0,360) #will be given by weather station
+	print("Current wind: ", windDegree)
+
+	compassBearing = 90 #pointed east
+
+	difference = windDegree - compassBearing
+
+
 	if difference > 180:
 		difference = (360-difference)
 
