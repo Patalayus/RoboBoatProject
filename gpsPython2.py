@@ -27,7 +27,7 @@ def getCoord():
 
 	return getCoord.lat, getCoord.lon
 
-timing = 0 
+timing = 0
 while timing < 5:
 	lat,long = getCoord()
 	if lat != 0 or long !=0:
