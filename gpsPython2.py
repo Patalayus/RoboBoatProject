@@ -10,7 +10,7 @@ def getCoord():
 			getCoord.lat = 0
 		if 'lon' not in getCoord.__dict__:
 			getCoord.lon = 0		# Some half-assed static variables
-		ser = serial.Serial('/dev/ttyAMA0', baudrate=9600, timeout=10) # Open serial comm on ttyS0
+		ser = serial.Serial('/dev/ttyS0', baudrate=9600, timeout=10) # Open serial comm on ttyS0
 		dataout = pynmea2.NMEAStreamReader()	# This is our GPS code parser
 		timing = 0
 		while 1:

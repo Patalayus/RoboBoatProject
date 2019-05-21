@@ -1,40 +1,52 @@
-#from moveSail import *
-#from newCompass import *
+from moveSail import *
+from rudderMovement import *
+from newCompass import *
 import random
+import time
 
 #get wind from mqtt
 def tacking():
-	if 'lastTack' not in startTacking.__dict__:
-		lastTack = -1
+	if 'lastTack' not in tacking.__dict__:
+		tacking.lastTack = -1
 	else:
-		lastTack *= -1
+		tacking.lastTack *= -1
 	#move rudder in the direction of lastTack
 	#disable other code
-	#sleep 5 seconds
-	#release sail to 45
-	#sleep 5
-	#let everything else take over
+	moveRudder(6 * tacking.lastTack)
+	print("Rudder moved, ", tacking.lastTack)
+	#print("Sail moved to middle")
+	time.sleep(17)
+	print("tacking stopped")
 
 def analyzeWind():
-	windDegree = random.randint(0,360) #will be given by weather station
+	windDegree = 0
 	print("Current wind: ", windDegree)
 
-	compassBearing = 90 #pointed east
+	compassBearing = getBearing() #pointed east
 
-	difference = windDegree - compassBearing
-
+	difference = (windDegree - compassBearing) % 360
 
 	if difference > 180:
 		difference = (360-difference)
 
+	print("Diff: ", difference)
+
 	if difference > 140: #180 +- 30
 		#we are in irons
-		#tacking
-		#sail at 0 degrees
-		lastTack = startTacking(lastTack)
+		print("In irons")
+		moveSail(-9)
+		tacking()
 	elif difference > 40:
 		#wind from the side
-		#45 degrees
+		print("From the side")
+		moveSail(-6)
 	else:
 		#wind from behind
-		#90 degrees, max
+		print("From behind")
+		moveSail(-3)
+
+if __name__ == "__main__":
+	while True:
+		analyzeWind()
+		input()
+

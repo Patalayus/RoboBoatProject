@@ -1,4 +1,4 @@
-import pigpio 
+import pigpio
 
 def moveRudder(value):
 	"""Moves the rudder along in range [-4,4], -4=left, 0=centre, 4=right"""
